@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Alice",
+        "age": 24,
+        "bio": "Fan de React et de voyages",
+        "image": "https://randomuser.me/api/portraits/women/9.jpg"
+    },
+    {
+        "name": "Bob",
+        "age": 27,
+        "bio": "Développeur mobile et amateur de café",
+        "image": "https://randomuser.me/api/portraits/men/30.jpg"
+    }
+]
