@@ -2,7 +2,7 @@ import { SafeAreaView, View } from "react-native";
 
 export default function Profile() {
 
-    const data = require('../../constants/profile.json')
+    const data = require('../../../constants/profile.json')
 
     return (
         <SafeAreaView>

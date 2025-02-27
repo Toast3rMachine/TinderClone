@@ -1,13 +1,42 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Redirect, Tabs } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
 
 import { HapticTab } from '@/components/HapticTab';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
+import useUserStore from '@/store/user.store';
+import { getValueFor } from '@/lib/utils/secure_store';
 
 export default function TabLayout() {
 
+  // État d'authentification global
+  const { isAuthenticated, setAuthenticated }: any = useUserStore();
+  // État local pour gérer le chargement initial
+  const [isReady, setIsReady] = useState(false);
+
+  // Fonction pour vérifier si l'utilisateur est déjà authentifié
+  const checkIfUserIsAlreadyAuthenticated = async () => {
+    const isAuthenticated = await getValueFor("isAuthenticated");
+    if (isAuthenticated) {
+      setAuthenticated(true);
+    }
+    setIsReady(true);
+  };
+
+  // Effect pour vérifier l'authentification au chargement
+  useEffect(() => {
+    if (!isAuthenticated) {
+      checkIfUserIsAlreadyAuthenticated();
+    }
+  }, [isAuthenticated]);
+
+  // Redirection vers la page de login si non authentifié
+  if (!isAuthenticated && isReady) {
+    return <Redirect href="/(public)/login" />;
+  }
+
+  if (isAuthenticated){
   return (
     <Tabs
       screenOptions={{
@@ -44,5 +73,5 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
-  );
+  );}
 }
