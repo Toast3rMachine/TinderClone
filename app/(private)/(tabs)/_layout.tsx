@@ -10,6 +10,7 @@ import { getValueFor } from '@/lib/utils/secure_store';
 
 export default function TabLayout() {
 
+  const platform = Platform.OS;
   // État d'authentification global
   const { isAuthenticated, setAuthenticated }: any = useUserStore();
   // État local pour gérer le chargement initial
@@ -17,7 +18,15 @@ export default function TabLayout() {
 
   // Fonction pour vérifier si l'utilisateur est déjà authentifié
   const checkIfUserIsAlreadyAuthenticated = async () => {
-    const isAuthenticated = await getValueFor("isAuthenticated");
+    
+    let isAuthenticated;
+
+    if (platform !== "web"){
+      isAuthenticated = await getValueFor("isAuthenticated");
+    } else {
+      isAuthenticated = localStorage.getItem("token");
+    }
+
     if (isAuthenticated) {
       setAuthenticated(true);
     }

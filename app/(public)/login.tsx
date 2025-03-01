@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Platform, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import { useMutation } from "@tanstack/react-query";
 import useUserStore from "@/store/user.store";
@@ -9,9 +9,10 @@ import { save } from "@/lib/utils/secure_store";
 export default function Profile() {
 
     const router = useRouter();
-    // Récupération des fonctions de gestion d'authentification du store
+    const platform = Platform.OS;
+
     const { setAuthenticated, setUser }: any = useUserStore();
-    // État local pour les champs du formulaire
+
     const [fields, setFields] = useState({
         email: "",
         password: "",
@@ -22,20 +23,23 @@ export default function Profile() {
         mutationFn: async (credentials: { email: string; password: string }) => {
             const email = credentials.email;
             const password = credentials.password;
-            return fetch("https://api.escuelajs.co/api/v1/auth/login", {
+            return fetch("https://api-tinder-next.vercel.app/api/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ email, password }),
-                credentials: "include",
             }).then((res) => res.json());
         },
         // Gestion du succès de la connexion
         onSuccess: async (data) => {
             setAuthenticated(true);
             setUser(data);
-            await save("token", data?.token as string);
+            if (platform !== "web"){
+                await save("token", data?.token as string);
+            } else {
+                localStorage.setItem("token", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJTdHVkZW50IiwiaWF0IjoxNzQwNzMxMDk3LCJleHAiOjE3NDA4MTc0OTd9.8MzUe__9pEvIVTkB-dywmvidlJLFSDqgCkwdOTrci_vA-LxgSc0sjC3noUqFfz2LGZU5LjHrmouR3oHypVwLHw");
+            }
             router.push("/(private)/(tabs)");
         },
         // Gestion des erreurs

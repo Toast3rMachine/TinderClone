@@ -6,6 +6,36 @@
         "image": "https://randomuser.me/api/portraits/women/9.jpg"
     },
     {
+        "name": "Leanne",
+        "age": 28,
+        "bio": "Architecte Logiciel",
+        "image": "https://randomuser.me/api/portraits/women/13.jpg"
+    },
+    {
+        "name": "Clementine",
+        "age": 24,
+        "bio": "Développeuse mobile",
+        "image": "https://randomuser.me/api/portraits/women/44.jpg"
+    },
+    {
+        "name": "Chelsey",
+        "age": 32,
+        "bio": "Tech Lead",
+        "image": "https://randomuser.me/api/portraits/women/41.jpg"
+    },
+    {
+        "name": "Glenna",
+        "age": 27,
+        "bio": "Vive l'assembleur",
+        "image": "https://randomuser.me/api/portraits/women/30.jpg"
+    },
+    {
+        "name": "Janne",
+        "age": 25,
+        "bio": "Hackeuse du dimanche",
+        "image": "https://randomuser.me/api/portraits/women/40.jpg"
+    },
+    {
         "name": "Bob",
         "age": 27,
         "bio": "Développeur mobile et amateur de café",
